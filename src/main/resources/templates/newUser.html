@@ -38,6 +38,7 @@
             <p>
                 <label>Select role:
                     <input type="checkbox" name="roles"
+                           th:field="*{roles}"
                            th:each="role : ${roles}"
                            th:text="${role.name}"
                            th:value="${role.id}"/>
@@ -59,6 +60,7 @@
                 </td>
             </tr>
         </table>
+        <h3><a th:href="@{/logout}">Logout</a></h3>
     </form>
 </div>
 </body>

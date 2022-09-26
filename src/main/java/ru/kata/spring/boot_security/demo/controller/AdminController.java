@@ -4,25 +4,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.entities.Role;
-import ru.kata.spring.boot_security.demo.entities.User;
+import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
+    private UserDto userDto;
 
 
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService,UserDto userDto) {
         this.userService = userService;
         this.roleService = roleService;
+        this.userDto = userDto;
     }
 
     @GetMapping()
@@ -32,16 +31,19 @@ public class AdminController {
     }
     @GetMapping("/new")
     public String newUserForm(Model model){
-        model.addAttribute("user",new User());
+        model.addAttribute("user",new UserDto());
         model.addAttribute("roles",roleService.getAllRoles());
         return "newUser";
     }
     @PostMapping("/new")
-    public String addNewUser(@ModelAttribute("user") @Valid User user,BindingResult bindingResult){
+    public String addNewUser(@ModelAttribute("user") @Valid UserDto userDto,BindingResult bindingResult){
     if (bindingResult.hasErrors()){
         return "/newUser";
     }
-    userService.save(user);
+
+    userService.save(userDto);
+
+
     return "redirect:/admin";
     }
     @GetMapping("/edit/{id}")
@@ -51,11 +53,13 @@ public class AdminController {
         return "edit";
     }
     @PatchMapping("/edit")
-    public String update2(@ModelAttribute("user") @Valid User user,BindingResult bindingResult){
+    public String update2(@ModelAttribute("user") @Valid UserDto userDto,BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "/edit";
         }
-        userService.update(user);
+
+        userService.update(userDto);
+
         return "redirect:/admin";
     }
     @DeleteMapping("/{id}")

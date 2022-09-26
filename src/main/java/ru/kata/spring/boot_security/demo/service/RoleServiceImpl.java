@@ -5,7 +5,6 @@ import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.entities.Role;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -32,7 +31,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public void save(Role role) {
-    roleDao.save(role);
+    roleDao.save(String.valueOf(role));
     }
 
     @Override

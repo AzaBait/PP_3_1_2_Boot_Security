@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 import java.util.List;
 
 @Repository
@@ -24,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void save(User user) {
+    public void save(UserDto user) {
         entityManager.persist(user);
     }
 
@@ -34,7 +36,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User user) {
+    public void update(UserDto user) {
         entityManager.merge(user);
     }
 

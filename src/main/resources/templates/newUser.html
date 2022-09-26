@@ -30,20 +30,23 @@
                     <input type="text" th:field="*{email}" id="email" required/>
                 </td>
             </tr>
+            <select id="roleIds" th:field="*{roleIds}" multiple="multiple">
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
 
 <!--            <select id="dropDownList" multiple size="2" th:field="*{roles}">-->
 <!--                <option value="0" disabled>select role</option>-->
 <!--                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role}"></option>-->
 <!--            </select>-->
-            <p>
-                <label>Select role:
-                    <input type="checkbox" name="roles"
-                           th:field="*{roles}"
-                           th:each="role : ${roles}"
-                           th:text="${role.name}"
-                           th:value="${role.id}"/>
-                </label>
-            </p>
+<!--            <p>-->
+<!--                <label>Select role:-->
+<!--                    <input type="checkbox" name="roleIds"-->
+<!--                           th:field="${roleIds}"-->
+<!--                           th:each="role : ${roleIds}"-->
+<!--                           th:text="${role.name}"-->
+<!--                           th:value="${role.id}"/>-->
+<!--                </label>-->
+<!--            </p>-->
 <!--            <tr>-->
 <!--                <td colspan="2">-->
 <!--                    <select size="3" multiple="multiple" name="roles" id="roles">-->

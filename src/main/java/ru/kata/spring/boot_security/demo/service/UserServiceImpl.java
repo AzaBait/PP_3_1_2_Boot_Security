@@ -1,16 +1,15 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
-import ru.kata.spring.boot_security.demo.entities.Role;
+import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.entities.User;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -35,10 +34,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void save(User user) {
+    public User save(@Valid UserDto user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userDao.save(user);
+        return null;
     }
 
     @Override
@@ -48,8 +48,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void update(User user) {
+    public User update(UserDto user) {
         userDao.update(user);
+        return null;
     }
 
 //    @Override
@@ -80,5 +81,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public void saveRole(String role) {
+        roleDao.save(role);
     }
 }
